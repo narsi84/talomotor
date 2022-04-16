@@ -1,13 +1,14 @@
-# talomotor
+# Talomotor
+Talomotor is a robotic talam keeper, built with Raspbetty Pi, capable of supporting any talam in any jathi & nadai.  
 
 ## Electronics
-Raspberry Pi Zero W
-[Servo Motor Driver](https://www.amazon.com/gp/product/B07H9ZTWNC/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)
-[Servo Motor](https://www.amazon.com/gp/product/B07L2SF3R4/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)
+Raspberry Pi Zero W  
+[Servo Motor Driver](https://www.amazon.com/gp/product/B07H9ZTWNC/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)  
+[Servo Motor](https://www.amazon.com/gp/product/B07L2SF3R4/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)  
 
 ## Dependencies
-Python 3.5.3
-virtualenv
+Python 3.5.3  
+virtualenv  
 
 ## Running the code
 See code for details
