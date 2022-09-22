@@ -1,0 +1,299 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<script type="text/javascript" src="jquery-3.6.1.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<style type="text/css">
+
+		#form {
+			width: 80%;
+			margin: auto;
+			margin-top: 2%;
+		}
+
+		.divider {
+			margin: 2%;
+			border: 1px solid gray;
+		}
+
+		#navtext {
+			font-size: 2em;
+			font-weight: bold;
+		}
+
+	</style>
+	<script type="text/javascript">
+		function enableSubmit(){
+			$('#submit').attr('disabled', false);
+		}
+
+		function submit(){
+			let thalam = $('input[name=thalam]:checked').val();
+			let jathi = $('input[name=jathi]:checked').val();
+			let nadai = $('input[name=nadai]:checked').val();
+			let speed = $('input[name=speed]:checked').val();
+                        let kalai = $('input[name=kalai]:checked').val();
+			let custom = $('#ctext input').val();
+
+			$('#submit').attr('disabled', true);
+			if (thalam.indexOf('chapu') > 0){
+				$.get(`/play_chapu/?name=${thalam}`, enableSubmit);
+			}
+			else if (thalam == 'custom' && custom){
+				$.get(`/play_custom/?pattern=${custom}`, enableSubmit);	
+			}
+			else {
+				$.get(`/play_thalam/?name=${thalam}&jathi=${jathi}&nadai=${nadai}&kalai=${kalai}&speed=${speed}`, enableSubmit);
+			}
+		}
+
+		function selectChapu(val){
+			console.log('Chapu: ', val);
+			if (val){
+				$('input[name=jathi]').attr('disabled', true);
+				$('input[name=nadai]').attr('disabled', true);
+				$('input[name=speed]').attr('disabled', true);
+				$('input[name=kalai]').attr('disabled', true);
+			}
+			else {
+				$('input[name=jathi]').attr('disabled', false);
+				$('input[name=nadai]').attr('disabled', false);
+				$('input[name=speed]').attr('disabled', false);
+				$('input[name=kalai]').attr('disabled', false);
+			}
+			$('#ctext').attr('hidden', true);
+		}
+
+		function selectCustom(){
+			selectChapu(true);
+			$('#ctext').attr('hidden', false);
+		}
+
+	</script>
+</head>
+<body>
+	<nav class="navbar bg-light">
+	  <div class="container-fluid center">
+	    <span class="navbar-brand m-auto" id="navtext">TALOMOTOR</span>
+	  </div>
+	</nav>	
+	<form id='form'>
+		<div class="row">
+			<div class="col" id='thalam'>
+				<fieldset>
+					<legend>Thala</legend>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="thalam" value="ata" onclick="selectChapu(false)" id="ata">
+						<label class="form-check-label" for="ata">
+							Ata
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="thalam" value="dhruva" onclick="selectChapu(false)" id="dhruva">
+						<label class="form-check-label" for="dhruva">
+							Dhruva
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="thalam" value="eka" onclick="selectChapu(false)" id="eka">
+						<label class="form-check-label" for="eka">
+							Eka
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="thalam" value="jumpa" onclick="selectChapu(false)" id="jumpa">
+						<label class="form-check-label" for="jumpa">
+							Jumpa
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="thalam" value="matya" onclick="selectChapu(false)" id="matya">
+						<label class="form-check-label" for="matya">
+							Matya
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="thalam" value="rupaka" onclick="selectChapu(false)" id="rupaka">
+						<label class="form-check-label" for="rupaka">
+							Rupaka
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="thalam" value="triputa" onclick="selectChapu(false)" id="triputa" checked>
+						<label class="form-check-label" for="triputa">
+							Triputa
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="thalam" value="kchapu" onclick="selectChapu(true)" id="kchapu">
+						<label class="form-check-label" for="kchapu">
+							Kanda Chapu
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="thalam" value="mchapu" onclick="selectChapu(true)" id="mchapu">
+						<label class="form-check-label" for="mchapu">
+							Misra Chapu
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="thalam" value="schapu" onclick="selectChapu(true)" id="schapu">
+						<label class="form-check-label" for="schapu">
+							Sankeerna Chapu
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="thalam" value="custom" onclick="selectCustom()" id="custom">
+						<label class="form-check-label" for="custom">
+							Other
+						</label>
+					</div>
+					<div class="mb-3 mt-3" id="ctext" hidden>
+					  <input type="text" class="form-control" placeholder="Adi: PLRMPBPB, Pancha Jathi: P2P2L3R7M5I9">
+					</div>
+				</fieldset>		
+			</div>
+			<div class="col bg-light">
+				<h1 class="text-center">How To:</h1>
+				<ul>
+					<li>Select a thala</li>
+					<li>For soolathi thalas, select jathi, nadai, kalai & speed</li>
+					<li>For custom thalas, use this mapping
+						<ul>
+							<li>L: Little finger</li>
+							<li>R: Ring finger</li>
+							<li>M: Middle finger</li>
+							<li>I: Index finger</li>
+							<li>T: Thumb finger</li>
+							<li>P: Thattu (Strike with palm)</li>
+							<li>B: Veechu (Strike with back of palm)</li>
+						</ul>
+					</li>
+					<p>Specify the nadai next to the letter if playing different nadais for each kriya. For example, to play pancha jathi thala, use P2P2LR7M5I9. </p>
+				</ul>
+			</div>
+		</div>
+		<div class="divider"></div>
+		<div class="row" id="options">
+			<div class="col" id='jathi'>
+				<fieldset>
+					<legend>Jathi</legend>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="jathi" value="3" id="j_tisra">
+						<label class="form-check-label" for="j_tisra">
+							Thisra
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="jathi" value="4" id="j_chat" checked>
+						<label class="form-check-label" for="j_chat">
+							Chatusra
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="jathi" value="5" id="j_kanda">
+						<label class="form-check-label" for="j_kanda">
+							Kanda
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="jathi" value="7" id="j_misra">
+						<label class="form-check-label" for="j_misra">
+							Misra
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="jathi" value="9" id="j_sank">
+						<label class="form-check-label" for="j_sank">
+							Sankeerna
+						</label>
+					</div>					
+				</fieldset>
+			</div>
+			<div class="col" id='nadai'>
+				<fieldset>
+					<legend>Nadai</legend>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="nadai" value="3" id="n_tisra">
+						<label class="form-check-label" for="n_tisra">
+							Thisra
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="nadai" value="4" id="n_chat" checked>
+						<label class="form-check-label" for="n_chat">
+							Chatusra
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="nadai" value="5" id="n_kanda">
+						<label class="form-check-label" for="n_kanda">
+							Kanda
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="nadai" value="7" id="n_misra">
+						<label class="form-check-label" for="n_misra">
+							Misra
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="nadai" value="9" id="n_sank">
+						<label class="form-check-label" for="n_sank">
+							Sankeerna
+						</label>
+					</div>					
+				</fieldset>
+			</div>
+			<div class="col" id='kalai'>
+				<fieldset>
+					<legend>Kalai</legend>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="kalai" value="1" id="kalai1" checked>
+						<label class="form-check-label" for="kalai1">
+							1
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="kalai" value="2" id="kalai2">
+						<label class="form-check-label" for="kalai2">
+							2
+						</label>
+					</div>
+				</fieldset>
+			</div>
+			<div class="col" id='speed'>
+				<fieldset>
+					<legend>Speed</legend>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="speed" value="low" id="low" checked>
+						<label class="form-check-label" for="low">
+							Low
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="speed" value="medium" id="medium">
+						<label class="form-check-label" for="medium">
+							Medium
+						</label>
+					</div>		
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="speed" value="high" id="high">
+						<label class="form-check-label" for="high">
+							High
+						</label>
+					</div>								
+				</fieldset>
+				
+			</div>
+		</div>
+	</form>
+	<div class="divider"></div>
+	<div class="d-flex justify-content-center">
+	  <button id="submit" class="btn btn-primary" onclick="submit()">Play thala</button>
+	</div>
+
+	
+</body>
+</html>
